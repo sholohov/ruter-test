@@ -39,7 +39,7 @@ router.beforeResolve(async (to) => {
         component: SomePage
       })
 
-      return to
+      return to.fullPath
     }
   }
 })
