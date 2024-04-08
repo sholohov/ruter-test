@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  SomePage
+  SomePage {{ $route.path }}
 </template>
 
 <style scoped>

@@ -1,45 +1,6 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import SomePage from '@/views/SomePage.vue';
-
-const router = useRouter()
-
-const data = reactive({
-  routes: [] as { path: string, label: string }[]
-})
-
-async function fetchRoutes () {
-  await new Promise(res => setTimeout(res, 500))
-
-  return [{
-    path: '/111',
-    label: 'Cтраница',
-  }]
-}
-
-async function init () {
-  const routes = await fetchRoutes()
-
-  const currentUrl = location.pathname
-
-  const route = routes.find(route => route.path === currentUrl)
-
-  if (route) {
-    data.routes.push(route)
-
-    router.addRoute({
-      path: route.path,
-      component: SomePage
-    })
-
-    await router.replace(currentUrl)
-  }
-}
-
-init()
-
 </script>
 
 <template>
@@ -52,12 +13,7 @@ init()
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink
-          v-for="item in data.routes"
-          :to="item.path"
-        >
-          {{ item.label }}
-        </RouterLink>
+        <RouterLink to="/111">111</RouterLink>
       </nav>
     </div>
   </header>
