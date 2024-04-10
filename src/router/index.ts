@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import {addDynamicRoutes, fetchDynamicRoutes} from "@/router/dynamicRoutes";
+import {addDynamicRoutes, prefetchDynamicRoutes} from "@/router/dynamicRoutes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,7 +29,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  fetchDynamicRoutes()
+  prefetchDynamicRoutes()
 
   // второй вариант, вся логика в одном месте
   if (to.name === '404') {

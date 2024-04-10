@@ -7,19 +7,17 @@ let waitFetch: Promise<void> | null = null
 let resolve = () => {}
 let reject = () => {}
 
-export function fetchDynamicRoutes () {
+export function prefetchDynamicRoutes () {
   if (waitFetch) {
     return
   }
-
-  const mainStore = useMainStore()
 
   waitFetch = new Promise((res, rej) => {
     resolve = res
     reject = rej
   })
 
-  mainStore.fetchRoutes().then(resolve).catch(reject)
+  useMainStore().fetchRoutes().then(resolve).catch(reject)
 }
 
 export async function addDynamicRoutes (
