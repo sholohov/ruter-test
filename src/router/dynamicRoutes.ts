@@ -4,20 +4,11 @@ import { useMainStore } from "@/stores/main";
 import router from "@/router";
 
 let waitFetch: Promise<void> | null = null
-let resolve = () => {}
-let reject = () => {}
 
 export function prefetchDynamicRoutes () {
-  if (waitFetch) {
-    return
+  if (!waitFetch) {
+    waitFetch = useMainStore().fetchRoutes()
   }
-
-  waitFetch = new Promise((res, rej) => {
-    resolve = res
-    reject = rej
-  })
-
-  useMainStore().fetchRoutes().then(resolve).catch(reject)
 }
 
 export async function addDynamicRoutes (
