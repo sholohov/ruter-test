@@ -1,45 +1,6 @@
 <script setup lang="ts">
-import {RouterLink, RouterView, useRouter} from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import {useMainStore} from "@/stores/main";
-import SomePage from "@/views/SomePage.vue";
-
-const router = useRouter()
-const mainStore = useMainStore()
-
-let waitFetchRoutes: Promise<void> | null = null
-let resolve = () => {}
-let reject = () => {}
-
-router.beforeEach(async (to) => {
-  if (!waitFetchRoutes) {
-    waitFetchRoutes = new Promise((res, rej) => {
-      resolve = res
-      reject = rej
-    })
-
-    mainStore.fetchRoutes().then(resolve).catch(reject)
-  }
-
-  if (to.name === '404') {
-    await waitFetchRoutes
-
-    const route = mainStore.routes?.find(route => {
-      return route.path === to.path
-    })
-
-    if (!route) {
-      return
-    }
-
-    router.addRoute({
-      path: route.path,
-      component: SomePage
-    })
-
-    return to.fullPath
-  }
-})
 </script>
 
 <template>

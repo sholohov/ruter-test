@@ -1,16 +1,15 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export interface CmsRoute {
+export interface DynamicRoute {
   path: string
   label: string
 }
 
 export const useMainStore = defineStore('counter', () => {
-  const routes = ref<CmsRoute[]|null>(null)
+  const routes = ref<DynamicRoute[]|null>(null)
 
   async function fetchRoutes(): Promise<void> {
-    console.log(1111)
     await new Promise(res => setTimeout(res, 3000))
 
     routes.value = [{

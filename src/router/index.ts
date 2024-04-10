@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import {addDynamicRoutes, fetchDynamicRoutes} from "@/router/dynamicRoutes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,8 +22,19 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: '404',
       component: () => import('@/views/NoFoundPage.vue')
+      // первый вариант, хук идёт после beforeEach
+      // beforeEnter: [addDynamicRoutes]
     }
   ]
+})
+
+router.beforeEach(async (to) => {
+  fetchDynamicRoutes()
+
+  // второй вариант, вся логика в одном месте
+  if (to.name === '404') {
+    await addDynamicRoutes(to)
+  }
 })
 
 export default router
