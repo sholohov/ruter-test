@@ -33,7 +33,7 @@ router.beforeEach(async (to) => {
 
   // второй вариант, вся логика в одном месте
   if (to.name === '404') {
-    await addDynamicRoutes(to)
+    return await addDynamicRoutes(to)
   }
 })
 
